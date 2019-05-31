@@ -38,7 +38,7 @@ class Interpreter {
   virtual ~Interpreter() = default;
 
   // Returns the interrupt budget which should be used for the profiler counter.
-  static int InterruptBudget();
+  V8_EXPORT_PRIVATE static int InterruptBudget();
 
   // Creates a compilation job which will generate bytecode for |literal|.
   // Additionally, if |eager_inner_literals| is not null, adds any eagerly
@@ -50,7 +50,8 @@ class Interpreter {
 
   // If the bytecode handler for |bytecode| and |operand_scale| has not yet
   // been loaded, deserialize it. Then return the handler.
-  Code GetBytecodeHandler(Bytecode bytecode, OperandScale operand_scale);
+  V8_EXPORT_PRIVATE Code GetBytecodeHandler(Bytecode bytecode,
+                                            OperandScale operand_scale);
 
   // Set the bytecode handler for |bytecode| and |operand_scale|.
   void SetBytecodeHandler(Bytecode bytecode, OperandScale operand_scale,
@@ -59,8 +60,8 @@ class Interpreter {
   // GC support.
   void IterateDispatchTable(RootVisitor* v);
 
-  // Disassembler support (only useful with ENABLE_DISASSEMBLER defined).
-  const char* LookupNameOfBytecodeHandler(const Code code);
+  // Disassembler support.
+  V8_EXPORT_PRIVATE const char* LookupNameOfBytecodeHandler(const Code code);
 
   V8_EXPORT_PRIVATE Local<v8::Object> GetDispatchCountersObject();
 
